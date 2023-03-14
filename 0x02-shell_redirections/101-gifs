@@ -1,0 +1,2 @@
+#!/bin/bash
+find -type f -name '*.gif' | grep -r '*.' | LC_ALL=c sort -f 
