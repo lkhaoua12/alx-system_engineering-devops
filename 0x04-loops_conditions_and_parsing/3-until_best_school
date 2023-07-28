@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#display "best school" 10 times using until.
-count=1
+# display "best school" 10 times using until.
+count=0
 until ((count >= 10))
 do
 	echo "Best School"
