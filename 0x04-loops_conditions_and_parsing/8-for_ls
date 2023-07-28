@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# using command line with for loop.
+
+for file in $(ls -p | grep -v /)
+do
+	new_name=${file#*-}
+	echo $new_name
+done
