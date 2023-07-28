@@ -4,5 +4,5 @@
 for file in $(ls -p | grep -v /)
 do
 	new_name=${file#*-}
-	echo $new_name
+	echo "$new_name"
 done
