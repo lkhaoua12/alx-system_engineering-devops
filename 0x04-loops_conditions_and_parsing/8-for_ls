@@ -3,7 +3,8 @@
 
 for file in *
 do
-	if [ -f "$file" ]; then
+	if [ -f "$file" ]
+	then
 		new_name=${file#*-}
 		echo "$new_name"
 	fi
