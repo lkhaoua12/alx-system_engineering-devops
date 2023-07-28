@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # displayin 12 hours clock
 
-hours=1
+hours=0
 minute=1
 
 while ((hours <= 12))
 do
+	echo "Hour: $hours"
 	while ((minute <= 59))
 	do
 		echo $minute
 		((minute++))
 	done
-	echo "Hour: $hours"
 	minute=1
 	((hours++))
 done
