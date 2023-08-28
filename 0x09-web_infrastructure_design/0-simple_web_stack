@@ -1,0 +1,29 @@
+https://imgur.com/a/ZucIRHj
+
+1: Server.
+	A server is a computer or system that works to provide services to other computers (clients)
+	over a network.
+	These services include storing and managing data, hosting websites, and handling emails.
+
+2: the role of the domain name.
+	A domain name is used to easily access website addresses on the internet
+	in a readable and understandable form, as opposed to the numerical form used by computers.
+
+3:  type of DNS record www in www.foobar.com
+	The "www" in www.foobar.com is a subdomain represented by a DNS record named
+	"CNAME," which points to the main domain's DNS entry.
+	This allows the "www" prefix to direct users to the same web content as the main domain.
+
+4: role of the web server.
+	A web server delivers website content to the client's machine (browser)
+	when a web page is requested.
+
+5: the role of the application server:
+	An application server hosts the software environment where the application's codebase runs.
+
+6: the role of the database.
+	The role of the database is to store and organize data in a structured form.
+	It allows data access and management in a structured way.
+
+7:  server using to communicate with the computer of the user requesting the website.
+	What the sever uses to communicate with the client is Hypertext transfer protocol (HTTP).
