@@ -7,5 +7,5 @@ private_key="~/.ssh/school"
 server="server01"
 
 # Use SSH with the specified private key and user
-ssh -i "$private_key" ubuntu@"$server"
+ssh -i "$private_key" ubuntu@100.26.155.189
 
