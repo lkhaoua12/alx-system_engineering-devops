@@ -1,3 +1,4 @@
+# setting a file config.
 file { '/tmp/school':
   ensure  => 'file',
   mode    => '0744',
