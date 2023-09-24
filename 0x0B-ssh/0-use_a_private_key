@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# establishing commection to 100.26.155.189 as ubuntu.
 ssh -i ~/.ssh/school ubuntu@100.26.155.189 
 
 
