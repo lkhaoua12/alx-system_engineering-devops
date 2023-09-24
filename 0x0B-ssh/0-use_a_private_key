@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# getting the private_key
-private_key='~/.ssh/school'
+# Set the private key file
+private_key="~/.ssh/school"
 
 # Set the target server's IP address or hostname
 server="server01"
 
-# establishing the connection
+# Use SSH with the specified private key and user
 ssh -i "$private_key" ubuntu@"$server"
+
