@@ -1,5 +1,6 @@
-# define an exec ressourse that kills the killmenow procces.
-exec {'killmenow': 
-  command => 'pkill killmenow',
+# an exec ressource to kill a procces
+
+exec {'pkill':
+  command  => 'pkill killmenow',
   provider => 'shell',
 }
