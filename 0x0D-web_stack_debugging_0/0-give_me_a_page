@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # command to setup apache on the localhost port 80.
 
 echo "ServerName apache" >> /etc/apache2.conf
