@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 # run apache on designated container
+# Create a simple HTML file
+echo "Hello Holberton" | sudo tee /var/www/html/index.html
 
-echo "ServerName localhost" >> /etc/apache2.conf
-service apache2 start
+# Configure Apache to listen on port 80
+sudo sed -i 's/Listen 80/Listen 80/' /etc/apache2/ports.conf
+
+# Create a virtual host configuration file
+sudo tee /etc/apache2/sites-available/holberton.conf >/dev/null <<EOL
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+    ErrorLog \${APACHE_LOG_DIR}/error.log
+    CustomLog \${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOL
+
+# Enable the virtual host
+sudo a2ensite holberton.conf
+
+# Reload Apache to apply the changes
+sudo systemctl reload apache2
