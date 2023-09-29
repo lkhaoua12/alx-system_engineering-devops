@@ -12,6 +12,10 @@ echo "Hello World!" | sudo tee /var/www/html/index.html
 # configuring /redirect_me
 sudo sed -i "server_name _;/a \tlocation /redirect_me {\n\t rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n}" /etc/nginx/sites-available
 
-# configuring 404 not_found
+# configure error
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/not_found.html
+sudo sed -i "server_name _;/a \n\terror_page 404 not_found.html;" /etc/nginx/sites_availble
 
+# realoading the server.
+sudo service nginx reload
 
