@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 # configure / to echo hello world and /redirect_me to 301 moved permentely.
 
+# updating the system and installing nginx.
 sudo apt -y update
 sudo apt install -y nginx
-sudo ufw allow 'Nginx HTTP'
 
+# configuring root /
 echo "Hello World!" | sudo tee /var/www/html/index.html
-sudo sed -i '/listen 80 default_server/a \ \ \ \ location /redirect_me {\n\ \ \ \ \ \ \ \ rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n\ \ \ \ }' /etc/nginx/sites-available/default
+
+# configure /redirect_me.
+sudo sed -i "server_name _;/a \n\tlocation /redirect_me {\n\t\t rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n\t}" /etc/nginx/sites_availble
+
+# configure error
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/not_found.html
+sudo sed -i "server_name _;/a \n\terror_page 404 not_found.html;" /etc/nginx/sites_availble
+
+# realoading the server.
 sudo service nginx reload
