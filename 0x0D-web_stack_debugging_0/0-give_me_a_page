@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Create a simple HTML file
+sudo service apache2 start
 echo "Hello Holberton" | sudo tee /var/www/html/index.html
-
-sudo systemctl reload apache2
+sudo service apache2 reload
 
