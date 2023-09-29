@@ -1,31 +1,6 @@
 #!/usr/bin/env bash
-# Install Apache if not already installed
-if ! command -v apache2 &>/dev/null; then
-    sudo apt update
-    sudo apt install apache2 -y
-fi
-
 # Create a simple HTML file
-echo "<html><body><h1>Hello Holberton</h1></body></html>" | sudo tee /var/www/html/index.html
+echo "Hello Holberton" | sudo tee /var/www/html/index.html
 
-# Configure Apache to listen on port 80
-sudo sed -i 's/Listen 80/Listen 80/' /etc/apache2/ports.conf
-
-# Create a virtual host configuration file
-sudo tee /etc/apache2/sites-available/holberton.conf >/dev/null <<EOL
-<VirtualHost *:80>
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html
-    ErrorLog \${APACHE_LOG_DIR}/error.log
-    CustomLog \${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-EOL
-
-# Enable the virtual host
-sudo a2ensite holberton.conf
-
-# Reload Apache to apply the changes
 sudo systemctl reload apache2
 
-# Print a message indicating the configuration is done
-echo "Apache server is now configured to listen on port 80. You can access it using 'curl http://localhost'."
