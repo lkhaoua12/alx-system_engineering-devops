@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# configure / to echo hello world and /redirect_me to 301 moved permentely.
+
+sudo apt -y update
+sudo apt install -y nginx
+sudo ufw allow 'Nginx HTTP'
+
+echo "Hello World!" > /var/www/html/index.html
+sudo sed -i '/listen 80 default_server/a rewrite ^location {\n/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n}' /etc/nginx/site_availble/default 
+sudo service nginx reload
