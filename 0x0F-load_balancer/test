@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+server="server {
+    server_name default;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html/index.html;
+    index index.html index.htm;
+    location /redirect_me {
+        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+    }
+
+    error_page 404 /not_found.html;
+}"
+
+echo -e "$server" | sudo tee ~/testing
