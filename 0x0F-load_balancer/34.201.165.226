@@ -22,6 +22,6 @@ server="server {
     error_page 404 /not_found.html;
 }"
 
-echo -e "$server" | sudo tee /etc/nginx/modules-available/default
+echo -e "$server" | sudo tee ~/testing
 
 sudo service nginx service
