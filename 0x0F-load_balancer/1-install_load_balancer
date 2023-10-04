@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Update the package list and install HAProxy
 sudo apt-get update
@@ -38,5 +38,3 @@ echo "34.201.165.226 382394-web-02" | sudo tee -a /etc/hosts
 sudo systemctl restart haproxy
 
 sudo haproxy -c -f /etc/haproxy/haproxy.cfg
-
-sudo systemctl status haproxy
