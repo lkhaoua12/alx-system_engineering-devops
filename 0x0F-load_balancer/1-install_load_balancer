@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Update the package list and install HAProxy
+sudo apt-get update
+sudo apt-get install -y haproxy
+
+# Configure HAProxy
+cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:80
+    default_backend servers
+
+backend servers
+    balance roundrobin
+    server web-01 382394-web-01:80 check
+    server web-02 382394-web-02:80 check
+EOF
+
+# Ensure HAProxy can be managed via an init script
+sudo systemctl enable haproxy
+sudo systemctl start haproxy
+
+# Update the /etc/hosts file to set the correct hostnames
+echo "100.26.153.177 382394-web-01" | sudo tee -a /etc/hosts
+echo "34.201.165.226 382394-web-02" | sudo tee -a /etc/hosts
+
+# Restart HAProxy to apply the changes
+sudo systemctl restart haproxy
+
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+
+sudo systemctl status haproxy
