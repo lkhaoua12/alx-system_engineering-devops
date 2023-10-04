@@ -19,7 +19,7 @@ server="server {
         return 301 http://youtube.com/;
     }
 
-    error_page 404 /custom404.html;
+    error_page 404 /not_found.html;
     location /404 {
       root /var/www/html;
       internal;
@@ -28,4 +28,4 @@ server="server {
 
 echo -e "$server" | sudo tee /etc/nginx/sites-available/default
 
-sudo service nginx reload
+sudo service nginx restart
