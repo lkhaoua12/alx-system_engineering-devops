@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# stopping whatever listnenig on port 80 and restarting nginx
+
+# finding service listnenig on port 80
+# service=$(sudo lsof -i :80 | cut -d " " -f 1 | head -n 1)
+service=$(sudo lsof -i :80 | awk 'NR>1{print $1}' | uniq)
+
+# stopping the service 
+if [ -n "$service" ]; then
+	sudo systemctl stop $service
+fi
+
+# restarting nginx
+sudo systemctl restart nginx
