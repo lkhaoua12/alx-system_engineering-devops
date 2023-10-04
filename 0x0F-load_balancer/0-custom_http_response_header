@@ -9,19 +9,21 @@ echo "Hello World!" | sudo tee /var/www/html/index.html
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/not_found.html
 
 server="server {
-    server_name default;
+    server_name _;
+
     listen 80 default_server;
     listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
+
     root /var/www/html/index.html;
+
     index index.html index.htm;
     location /redirect_me {
         rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
     }
-
+    add_header X-Served-By $hostname;
     error_page 404 /not_found.html;
 }"
 
-echo -e "$server" | sudo tee /etc/nginx/modules-available/default
+echo -e "$server" | sudo tee /etc/nginx/sites-available/default
 
 sudo service nginx service
