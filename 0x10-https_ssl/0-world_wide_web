@@ -1,34 +1,15 @@
 #!/usr/bin/env bash
-# Function to retrieve DNS information for a subdomain
-
-get_dns_info() {
-    domain="$1"
-    subdomain="$2"
-    
-    if [[ -n "$subdomain" ]]; then
-        subdomains=("$subdomain")
-    else
-        subdomains=("www" "lb-01" "web-01" "web-02")
-    fi
-
-    for sub in "${subdomains[@]}"; do
-        output=$(dig "$sub.$domain" | grep -A1 'ANSWER SECTION:')
-        if [[ -n "$output" ]]; then
-            record_type=$(echo "$output" | awk '{print $4}')
-            destination=$(echo "$output" | awk '{print $5}')
-            printf "The subdomain $sub is a %s record and points to %s\n" "$record_type" "$destination"
-        fi
-    done
+# Call the function to retrieve DNS information
+dns_look_up () {
+	dig "$1" | grep -A1 "ANSWER SECTION:" | sed -r "s/$1./$2/g" | awk 'NR==2 {print "The subdomain " $1 " is a " $4 " record and points to "$5}'
 }
 
-# Check for the correct number of arguments
-if [[ $# -lt 1 ]]; then
-    echo "Usage: $0 domain [subdomain]"
-    exit 1
+if [ "$#" -eq 2 ]
+then
+    dns_look_up "$2.$1" "$2"
+else
+    dns_look_up "www.$1" 'www'
+    dns_look_up "lb-01.$1" 'lb-01'
+    dns_look_up "web-01.$1" 'web-01'
+    dns_look_up "web-02.$1" 'web-02'
 fi
-
-domain="$1"
-subdomain="$2"
-
-# Call the function to retrieve DNS information
-get_dns_info "$domain" "$subdomain"
