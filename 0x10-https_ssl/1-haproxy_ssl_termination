@@ -1,0 +1,24 @@
+global
+	daemon
+	maxcon 256
+
+defaults
+	mode http
+	timeout connect 5000ms
+	timeout client 50000ms
+	timeout server 50000ms
+
+frontend http-in
+	bind *:80
+	acl is_acme_challenge path_beg -i /.well-known/acme-challenge/
+	use_backend acl_haproxy if is_acme_challenge
+	default_backend servers
+
+frontend https-in
+	bind *:443
+	default_backend servers
+
+backend servers
+	balance roundrobin
+    	server web-01 100.26.153.177:80 check
+    	server web-02 34.201.165.226:80 check
