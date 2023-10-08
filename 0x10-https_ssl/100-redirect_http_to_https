@@ -1,0 +1,27 @@
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:80
+    redirect scheme https if !{ ssl_fc }	
+    acl is_acme_challenge path_beg -i /.well-known/acme-challenge/
+    use_backend acl_haproxy if is_acme_challenge
+    default_backend servers
+
+frontend https-in
+        bind *:443 ssl crt /etc/letsencrypt/live/www.lkhaoua.tech/privandpub.pem
+        default_backend servers
+
+backend servers
+    balance roundrobin
+    server web-01 382394-web-01:80 check
+    server web-02 382394-web-02:80 check
+backend acl_haproxy
+    server certbot-server 107.23.95.166:80 check
