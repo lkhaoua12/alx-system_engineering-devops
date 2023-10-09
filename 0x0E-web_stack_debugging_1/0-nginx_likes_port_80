@@ -6,7 +6,7 @@ service=$(lsof -i :80 | awk 'NR>1{print $1}' | uniq)
 
 # stopping the service 
 if [ -n "$service" ]; then
-	systemctl stop $service
+	systemctl stop "$service"
 fi
 
 # restarting nginx
