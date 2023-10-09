@@ -8,8 +8,7 @@ if ! dpkg -l | grep -q nginx; then
 fi
 
 # Create a custom Nginx configuration file to listen on port 80 for all IPs
-cat > /etc/nginx/sites-available/default << EOF
-server {
+conf="server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
@@ -18,12 +17,8 @@ server {
 
     server_name _;
 
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-EOF
-
+}"
+echo "$conf" | sudo tee /etc/nginx/sites-available/default
 # Test the Nginx configuration
 nginx -t
 
