@@ -1,18 +1,31 @@
 #!/usr/bin/env bash
 # making sure nginx installed
 
-sudo apt -y update
-sudo apt install -y nginx
-sudo service start nginx
-# stopping whatever listnenig on port 80 and restarting nginx
-
-# finding service listnenig on port 80
-service=$(sudo lsof -i :80 | awk 'NR>1{print $1}' | uniq)
-
-# stopping the service 
-if [ -n "$service" ]; then
-	systemctl stop "$service"
+# Install Nginx if not already installed
+if ! dpkg -l | grep -q nginx; then
+    apt-get update
+    apt-get install -y nginx
 fi
 
-# restarting nginx
+# Create a custom Nginx configuration file to listen on port 80 for all IPs
+cat > /etc/nginx/sites-available/default << EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
+
+# Test the Nginx configuration
+nginx -t
+
+# Restart Nginx to apply the changes
 service nginx restart
