@@ -1,26 +1,4 @@
 #!/usr/bin/env bash
-# making sure nginx installed
-
-# Install Nginx if not already installed
-if ! dpkg -l | grep -q nginx; then
-    apt-get update
-    apt-get install -y nginx
-fi
-
-# Create a custom Nginx configuration file to listen on port 80 for all IPs
-conf="server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/html;
-    index index.html index.htm;
-
-    server_name _;
-
-}"
-echo "$conf" | sudo tee /etc/nginx/sites-available/default
-# Test the Nginx configuration
-nginx -t
-
-# Restart Nginx to apply the changes
-service nginx restart
+# sym link default availble to default enabled
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
