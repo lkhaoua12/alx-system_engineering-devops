@@ -3,5 +3,5 @@
 MY_SQL_PASSWORD="$1"
 SQLDUMP_FILE="backup.sql"
 DATE=$(date +'%d-%m-%Y')
-mysqldump -u root -p$MY_SQL_PASSWORD --all-databases --master-data > "$SQLDUMP_FILE"
+mysqldump -u root -p$MY_SQL_PASSWORD --all-databases > "$SQLDUMP_FILE"
 tar -cvzf "$DATE.tar.gz" "$SQLDUMP_FILE"
