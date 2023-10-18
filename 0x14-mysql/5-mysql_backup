@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+# Create a dump file to archive db.
 
-MY_SQL_PASSWORD="$1"
-SQLDUMP_FILE="backup.sql"
+MYSQL_ROOT_PASSWORD="$1"
+BACKUP_FILENAME="backup.sql"
 DATE=$(date +'%d-%m-%Y')
-mysqldump -u root -p$MY_SQL_PASSWORD --all-databases > "$SQLDUMP_FILE"
+mysqldump -u root -p$MYSQL_ROOT_PASSWORD --all-databases > "$BACKUP_FILENAME"
 tar -cvzf "$DATE.tar.gz" "$SQLDUMP_FILE"
