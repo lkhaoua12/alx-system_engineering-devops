@@ -26,6 +26,7 @@ todos = response.json()
 completed_tasks = [todo for todo in todos if todo['completed']]
 total_tasks = len(todos)
 
-print(f"Employee {employee_name} is done with tasks({len(completed_tasks)}/{total_tasks}):")
+print(f"Employee {employee_name} \
+is done with tasks({len(completed_tasks)}/{total_tasks}):")
 for todo in completed_tasks:
     print(f"\t{todo['title']}")
