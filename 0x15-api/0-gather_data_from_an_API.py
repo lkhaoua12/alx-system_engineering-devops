@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+""" fetch and diplay to-do list """
 import requests
 import sys
 
