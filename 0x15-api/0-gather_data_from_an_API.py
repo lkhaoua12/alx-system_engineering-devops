@@ -1,32 +1,25 @@
 #!/usr/bin/python3
-""" fetch and diplay to-do list """
+""" fetch employee_str todo-list status and print it """
 import requests
 import sys
 
-if len(sys.argv) != 2:
-    print("Usage: python3 script_name.py <employee_id>")
-    sys.exit(1)
 
-employee_id = sys.argv[1]
+if __name__ == "__main__":
+    user_id = sys.argv[1]
+    url_str = 'https://jsonplaceholder.typicode.com/'
+    user_str = '{}users/{}'.format(url_str, user_id)
+    todos_str = '{}todos?userId={}'.format(url_str, user_id)
+    employee_str = "Employee {} is done with tasks"
 
-url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-response = requests.get(url)
+    res = requests.get(user_str)
+    print(employee_str.format(res.json().get('name')), end="")
 
-if response.status_code != 200:
-    print("Employee not found")
-    sys.exit(1)
+    res = requests.get(todos_str)
+    tasks = []
+    for task in res.json():
+        if task.get('completed') is True:
+            tasks.append(task)
 
-employee_data = response.json()
-employee_name = employee_data['name']
-
-url = f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
-response = requests.get(url)
-todos = response.json()
-
-completed_tasks = [todo for todo in todos if todo['completed']]
-total_tasks = len(todos)
-
-print(f"Employee {employee_name} \
-is done with tasks({len(completed_tasks)}/{total_tasks}):")
-for todo in completed_tasks:
-    print(f"\t{todo['title']}")
+    print("({}/{}):".format(len(tasks), len(res.json())))
+    for task in tasks:
+        print("\t {}".format(task.get("title")))
