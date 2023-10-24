@@ -15,4 +15,4 @@ if __name__ == "__main__":
     total_tasks = f'{len(finished_task)}/{len(todo_list)}'
     print(f'Employee {employee_name} is done with tasks({total_tasks}):')
     for task in finished_task:
-        print(f'\t{task.get("title")}')
+        print(f'\t {task.get("title")}')
