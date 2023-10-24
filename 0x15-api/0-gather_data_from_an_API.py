@@ -5,21 +5,14 @@ import sys
 
 
 if __name__ == "__main__":
-    user_id = sys.argv[1]
-    url_str = 'https://jsonplaceholder.typicode.com/'
-    user_str = '{}users/{}'.format(url_str, user_id)
-    todos_str = '{}todos?userId={}'.format(url_str, user_id)
-    employee_str = "Employee {} is done with tasks"
-
-    res = requests.get(user_str)
-    print(employee_str.format(res.json().get('name')), end="")
-
-    res = requests.get(todos_str)
-    tasks = []
-    for task in res.json():
-        if task.get('completed') is True:
-            tasks.append(task)
-
-    print("({}/{}):".format(len(tasks), len(res.json())))
-    for task in tasks:
-        print("\t {}".format(task.get("title")))
+    u_id = sys.argv[1]
+    url = f'https://jsonplaceholder.typicode.com/users/{u_id}'
+    employee_data = requests.get(url).json()
+    employee_name = employee_data.get('name')
+    todo_url = f'https://jsonplaceholder.typicode.com/todos?userId={u_id}'
+    todo_list = requests.get(todo_url).json()
+    finished_task = [todo for todo in todo_list if todo.get('completed')]
+    total_tasks = len(finished_task)/len(todo_list)
+    print(f'Employee {employee_name} is done with tasks({total_tasks}):')
+    for task in finished_task:
+        print(f'\t{task.get("title")}')
