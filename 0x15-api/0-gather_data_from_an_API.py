@@ -12,7 +12,7 @@ if __name__ == "__main__":
     todo_url = f'https://jsonplaceholder.typicode.com/todos?userId={u_id}'
     todo_list = requests.get(todo_url).json()
     finished_task = [todo for todo in todo_list if todo.get('completed')]
-    total_tasks = len(finished_task)/len(todo_list)
+    total_tasks = f'{len(finished_task)}/{len(todo_list)}'
     print(f'Employee {employee_name} is done with tasks({total_tasks}):')
     for task in finished_task:
         print(f'\t{task.get("title")}')
