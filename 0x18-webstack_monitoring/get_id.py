@@ -2,8 +2,8 @@
 import requests
 
 # Your Datadog API and Application keys
-api_key = '212084482de783111be6a5cdaa7370ee'
-app_key = '07d44a2f6549045c5cc3a382d9f6a4149fb52908'
+api_key = ''
+app_key = ''
 
 # Define the dashboard name you want to retrieve
 dashboard_name = 'alx dash'
