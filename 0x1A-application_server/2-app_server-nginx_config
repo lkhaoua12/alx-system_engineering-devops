@@ -1,0 +1,23 @@
+server {
+    location /hbnb_static {
+        alias /data/web_static/current/;
+    }
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By 382394-web-01;
+    root   /var/www/html;
+    index  index.html index.htm;
+
+    location /redirect_me {
+        return 301 http://youtube.com/;
+    }
+    location /airbnb-onepage{
+	proxy_pass http://localhost:5000/airbnb-onepage;
+        proxy_redirect off;
+    }
+    error_page 404 /not_found.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}
